@@ -1,11 +1,10 @@
 " Vim syntax file
 " Language: php PHP 3/4/5
-" Maintainer: Peter Hodge <toomuchphp-vim@yahoo.com>
-" Last Change:  June 9, 2006
-" URL: http://www.vim.org/scripts/script.php?script_id=1571
-"
-" Former Maintainer:  Debian VIM Maintainers <pkg-vim-maintainers@lists.alioth.debian.org>
-" Former URL: http://svn.debian.org/wsvn/pkg-vim/trunk/runtime/syntax/php.vim?op=file&rev=0&sc=0
+" Maintainer: Jason Woofenden <jason@jasonwoof.com>
+" Last Change:  April 28, 2011
+" URL: https://gitorious.org/jasonwoof/vim-syntax/blobs/master/php.vim
+" Former Maintainers: Peter Hodge <toomuchphp-vim@yahoo.com>
+"         Debian VIM Maintainers <pkg-vim-maintainers@lists.alioth.debian.org>
 "
 " Note: If you are using a colour terminal with dark background, you will probably find
 "       the 'elflord' colorscheme is much better for PHP's syntax than the default
