@@ -327,6 +327,8 @@ syn match phpFloat  "\(-\=\<\d+\|-\=\)\.\d\+\>" contained display
 syn match phpSpecialChar  "\\[abcfnrtyv\\]" contained display
 syn match phpSpecialChar  "\\\d\{3}"  contained contains=phpOctalError display
 syn match phpSpecialChar  "\\x\x\{2}" contained display
+syn match phpDoubleSpecialChar "\\\"" contained display
+syn match phpSingleSpecialChar "\\[\\']" contained display
 
 " Error
 syn match phpOctalError "[89]"  contained display
@@ -355,13 +357,13 @@ endif
 
 " String
 if exists("php_parent_error_open")
-  syn region  phpStringDouble matchgroup=None start=+"+ skip=+\\\\\|\\"+ end=+"+  contains=@phpAddStrings,phpIdentifier,phpSpecialChar,phpIdentifierSimply,phpIdentifierComplex contained keepend
+  syn region  phpStringDouble matchgroup=None start=+"+ skip=+\\\\\|\\"+ end=+"+  contains=@phpAddStrings,phpIdentifier,phpSpecialChar,phpIdentifierSimply,phpIdentifierComplex,phpDoubleSpecialChar contained keepend
   syn region  phpBacktick matchgroup=None start=+`+ skip=+\\\\\|\\"+ end=+`+  contains=@phpAddStrings,phpIdentifier,phpSpecialChar,phpIdentifierSimply,phpIdentifierComplex contained keepend
-  syn region  phpStringSingle matchgroup=None start=+'+ skip=+\\\\\|\\'+ end=+'+  contains=@phpAddStrings contained keepend
+  syn region  phpStringSingle matchgroup=None start=+'+ skip=+\\\\\|\\'+ end=+'+  contains=@phpAddStrings,phpSingleSpecialChar contained keepend
 else
-  syn region  phpStringDouble matchgroup=None start=+"+ skip=+\\\\\|\\"+ end=+"+  contains=@phpAddStrings,phpIdentifier,phpSpecialChar,phpIdentifierSimply,phpIdentifierComplex contained extend keepend
+  syn region  phpStringDouble matchgroup=None start=+"+ skip=+\\\\\|\\"+ end=+"+  contains=@phpAddStrings,phpIdentifier,phpSpecialChar,phpIdentifierSimply,phpIdentifierComplex,phpDoubleSpecialChar contained extend keepend
   syn region  phpBacktick matchgroup=None start=+`+ skip=+\\\\\|\\"+ end=+`+  contains=@phpAddStrings,phpIdentifier,phpSpecialChar,phpIdentifierSimply,phpIdentifierComplex contained extend keepend
-  syn region  phpStringSingle matchgroup=None start=+'+ skip=+\\\\\|\\'+ end=+'+  contains=@phpAddStrings contained keepend extend
+  syn region  phpStringSingle matchgroup=None start=+'+ skip=+\\\\\|\\'+ end=+'+  contains=@phpAddStrings,phpSingleSpecialChar contained keepend extend
 endif
 
 " HereDoc
@@ -613,6 +615,8 @@ if version >= 508 || !exists("did_php_syn_inits")
   HiLink   phpInclude Include
   HiLink   phpDefine  Define
   HiLink   phpSpecialChar SpecialChar
+  HiLink   phpDoubleSpecialChar SpecialChar
+  HiLink   phpSingleSpecialChar SpecialChar
   HiLink   phpParent  Delimiter
   HiLink   phpIdentifierConst Delimiter
   HiLink   phpParentError Error
