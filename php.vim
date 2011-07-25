@@ -330,14 +330,18 @@ syn match phpNumber "\<0x\x\{1,8}\>"  contained display
 " Float
 syn match phpFloat  "\(-\=\<\d+\|-\=\)\.\d\+\>" contained display
 
-" SpecialChar
-syn match phpSpecialChar  "\\[abcfnrtyv\\]" contained display
-syn match phpSpecialChar  "\\\d\{3}"  contained contains=phpOctalError display
-syn match phpSpecialChar  "\\x\x\{2}" contained display
-" Also special for double-quoted strings
-syn match phpDoubleSpecialChar "\\[\"$]" contained display
-" Only chars special for single-quoted strings
-syn match phpSingleSpecialChar "\\[\\']" contained display
+" Backslash escapes
+	syn case match
+	" for double quotes and heredoc
+	syn match phpBackslashSequences  "\\[fnrtv\\\"$]" contained display
+	syn match phpBackslashSequences  "\\\d\{1,3}"  contained contains=phpOctalError display
+	syn match phpBackslashSequences  "\\x\x\{2}" contained display
+	" additional sequence for double quotes only
+	syn match phpBackslashDoubleQuote "\\[\"]" contained display
+	" for single quotes only
+	syn match phpBackslashSingleQuote "\\[\\']" contained display
+	syn case ignore
+
 
 " Error
 syn match phpOctalError "[89]"  contained display
@@ -366,23 +370,23 @@ endif
 
 " String
 if exists("php_parent_error_open")
-  syn region  phpStringDouble matchgroup=None start=+"+ skip=+\\\\\|\\"+ end=+"+  contains=@phpAddStrings,phpSpecialChar,phpDoubleSpecialChar,phpInterpComplex,phpInterpSimple contained keepend
-  syn region  phpBacktick matchgroup=None start=+`+ skip=+\\\\\|\\"+ end=+`+  contains=@phpAddStrings,phpIdentifier,phpSpecialChar,phpIdentifierSimply,phpIdentifierComplex contained keepend
-  syn region  phpStringSingle matchgroup=None start=+'+ skip=+\\\\\|\\'+ end=+'+  contains=@phpAddStrings,phpSingleSpecialChar contained keepend
+  syn region  phpStringDouble matchgroup=None start=+"+ skip=+\\\\\|\\"+ end=+"+  contains=@phpAddStrings,phpBackslashSequences,phpBackslashDoubleQuote,phpInterpComplex,phpInterpSimple contained keepend
+  syn region  phpBacktick matchgroup=None start=+`+ skip=+\\\\\|\\"+ end=+`+  contains=@phpAddStrings,phpIdentifier,phpBackslashSequences,phpIdentifierSimply,phpIdentifierComplex contained keepend
+  syn region  phpStringSingle matchgroup=None start=+'+ skip=+\\\\\|\\'+ end=+'+  contains=@phpAddStrings,phpBackslashSingleQuote contained keepend
 else
-  syn region  phpStringDouble matchgroup=None start=+"+ skip=+\\\\\|\\"+ end=+"+  contains=@phpAddStrings,phpSpecialChar,phpDoubleSpecialChar,phpInterpComplex,phpInterpSimpleCurly,phpInterpSimple contained extend keepend
-  syn region  phpBacktick matchgroup=None start=+`+ skip=+\\\\\|\\"+ end=+`+  contains=@phpAddStrings,phpIdentifier,phpSpecialChar,phpIdentifierSimply,phpIdentifierComplex contained extend keepend
-  syn region  phpStringSingle matchgroup=None start=+'+ skip=+\\\\\|\\'+ end=+'+  contains=@phpAddStrings,phpSingleSpecialChar contained keepend extend
+  syn region  phpStringDouble matchgroup=None start=+"+ skip=+\\\\\|\\"+ end=+"+  contains=@phpAddStrings,phpBackslashSequences,phpBackslashDoubleQuote,phpInterpComplex,phpInterpSimpleCurly,phpInterpSimple contained extend keepend
+  syn region  phpBacktick matchgroup=None start=+`+ skip=+\\\\\|\\"+ end=+`+  contains=@phpAddStrings,phpIdentifier,phpBackslashSequences,phpIdentifierSimply,phpIdentifierComplex contained extend keepend
+  syn region  phpStringSingle matchgroup=None start=+'+ skip=+\\\\\|\\'+ end=+'+  contains=@phpAddStrings,phpBackslashSingleQuote contained keepend extend
 endif
 
 " HereDoc
 if version >= 600
   syn case match
-  syn region  phpHereDoc  matchgroup=Delimiter start="\(<<<\)\@<=\z(\I\i*\)$" end="^\z1\(;\=$\)\@=" contained contains=phpIdentifier,phpIdentifierSimply,phpIdentifierComplex,phpSpecialChar,phpMethodsVar keepend extend
+  syn region  phpHereDoc  matchgroup=Delimiter start="\(<<<\)\@<=\z(\I\i*\)$" end="^\z1\(;\=$\)\@=" contained contains=phpIdentifier,phpIdentifierSimply,phpIdentifierComplex,phpBackslashSequences,phpMethodsVar keepend extend
 " including HTML,JavaScript,SQL even if not enabled via options
-  syn region  phpHereDoc  matchgroup=Delimiter start="\(<<<\)\@<=\z(\(\I\i*\)\=\(html\)\c\(\i*\)\)$" end="^\z1\(;\=$\)\@="  contained contains=@htmlTop,phpIdentifier,phpIdentifierSimply,phpIdentifierComplex,phpSpecialChar,phpMethodsVar keepend extend
-  syn region  phpHereDoc  matchgroup=Delimiter start="\(<<<\)\@<=\z(\(\I\i*\)\=\(sql\)\c\(\i*\)\)$" end="^\z1\(;\=$\)\@=" contained contains=@sqlTop,phpIdentifier,phpIdentifierSimply,phpIdentifierComplex,phpSpecialChar,phpMethodsVar keepend extend
-  syn region  phpHereDoc  matchgroup=Delimiter start="\(<<<\)\@<=\z(\(\I\i*\)\=\(javascript\)\c\(\i*\)\)$" end="^\z1\(;\=$\)\@="  contained contains=@htmlJavascript,phpIdentifierSimply,phpIdentifier,phpIdentifierComplex,phpSpecialChar,phpMethodsVar keepend extend
+  syn region  phpHereDoc  matchgroup=Delimiter start="\(<<<\)\@<=\z(\(\I\i*\)\=\(html\)\c\(\i*\)\)$" end="^\z1\(;\=$\)\@="  contained contains=@htmlTop,phpIdentifier,phpIdentifierSimply,phpIdentifierComplex,phpBackslashSequences,phpMethodsVar keepend extend
+  syn region  phpHereDoc  matchgroup=Delimiter start="\(<<<\)\@<=\z(\(\I\i*\)\=\(sql\)\c\(\i*\)\)$" end="^\z1\(;\=$\)\@=" contained contains=@sqlTop,phpIdentifier,phpIdentifierSimply,phpIdentifierComplex,phpBackslashSequences,phpMethodsVar keepend extend
+  syn region  phpHereDoc  matchgroup=Delimiter start="\(<<<\)\@<=\z(\(\I\i*\)\=\(javascript\)\c\(\i*\)\)$" end="^\z1\(;\=$\)\@="  contained contains=@htmlJavascript,phpIdentifierSimply,phpIdentifier,phpIdentifierComplex,phpBackslashSequences,phpMethodsVar keepend extend
   syn case ignore
 endif
 
@@ -617,9 +621,9 @@ if version >= 508 || !exists("did_php_syn_inits")
   HiLink   phpType  Type
   HiLink   phpInclude Include
   HiLink   phpDefine  Define
-  HiLink   phpSpecialChar SpecialChar
-  HiLink   phpDoubleSpecialChar SpecialChar
-  HiLink   phpSingleSpecialChar SpecialChar
+  HiLink   phpBackslashSequences SpecialChar
+  HiLink   phpBackslashDoubleQuote SpecialChar
+  HiLink   phpBackslashSingleQuote SpecialChar
   HiLink   phpParent  Delimiter
   HiLink   phpIdentifierConst Delimiter
   HiLink   phpParentError Error
