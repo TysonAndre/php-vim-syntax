@@ -302,6 +302,14 @@ syn match phpIdentifierSimply "${\h\w*}"  contains=phpOperator,phpParent  contai
 syn region  phpIdentifierComplex  matchgroup=phpParent start="{\$"rs=e-1 end="}"  contains=phpIdentifier,phpMemberSelector,phpVarSelector,phpIdentifierComplexP contained extend
 syn region  phpIdentifierComplexP matchgroup=phpParent start="\[" end="]" contains=@phpClInside contained
 
+" Interpolated indentifiers (inside strings)
+syn match phpInterpEmptyKey "\[\]" contained display
+syn match phpInterpSimple "$\h\w*\(\[\w*\]\|->\h\w*\)\?" contained contains=phpIdentifier,phpInterpEmptyKey,phpMethods,phpMemberSelector display
+syn match phpInterpSimpleCurly "${\h\w*\(\[\w*\]\)\?" contained contains=phpIdentifierSimply,phpInterpEmptyKey display
+" syn match phpIdentifierSimply "${\h\w*}"  contains=phpOperator,phpParent  contained display
+"syn region  phpInterpComplex  matchgroup=phpParent start="{\$"rs=e-1 end="}"  contains=phpIdentifier,phpMemberSelector,phpVarSelector,phpIdentifierComplexP contained extend
+"syn region  phpIdentifierComplexP matchgroup=phpParent start="\[" end="]" contains=@phpClInside contained
+
 " Methoden
 syn match phpMethodsVar "->\h\w*" contained contains=phpMethods,phpMemberSelector display
 
@@ -326,7 +334,9 @@ syn match phpFloat  "\(-\=\<\d+\|-\=\)\.\d\+\>" contained display
 syn match phpSpecialChar  "\\[abcfnrtyv\\]" contained display
 syn match phpSpecialChar  "\\\d\{3}"  contained contains=phpOctalError display
 syn match phpSpecialChar  "\\x\x\{2}" contained display
-syn match phpDoubleSpecialChar "\\\"" contained display
+" Also special for double-quoted strings
+syn match phpDoubleSpecialChar "\\[\"$]" contained display
+" Only chars special for single-quoted strings
 syn match phpSingleSpecialChar "\\[\\']" contained display
 
 " Error
@@ -356,11 +366,11 @@ endif
 
 " String
 if exists("php_parent_error_open")
-  syn region  phpStringDouble matchgroup=None start=+"+ skip=+\\\\\|\\"+ end=+"+  contains=@phpAddStrings,phpIdentifier,phpSpecialChar,phpIdentifierSimply,phpIdentifierComplex,phpDoubleSpecialChar contained keepend
+  syn region  phpStringDouble matchgroup=None start=+"+ skip=+\\\\\|\\"+ end=+"+  contains=@phpAddStrings,phpSpecialChar,phpDoubleSpecialChar,phpInterpComplex,phpInterpSimple contained keepend
   syn region  phpBacktick matchgroup=None start=+`+ skip=+\\\\\|\\"+ end=+`+  contains=@phpAddStrings,phpIdentifier,phpSpecialChar,phpIdentifierSimply,phpIdentifierComplex contained keepend
   syn region  phpStringSingle matchgroup=None start=+'+ skip=+\\\\\|\\'+ end=+'+  contains=@phpAddStrings,phpSingleSpecialChar contained keepend
 else
-  syn region  phpStringDouble matchgroup=None start=+"+ skip=+\\\\\|\\"+ end=+"+  contains=@phpAddStrings,phpIdentifier,phpSpecialChar,phpIdentifierSimply,phpIdentifierComplex,phpDoubleSpecialChar contained extend keepend
+  syn region  phpStringDouble matchgroup=None start=+"+ skip=+\\\\\|\\"+ end=+"+  contains=@phpAddStrings,phpSpecialChar,phpDoubleSpecialChar,phpInterpComplex,phpInterpSimpleCurly,phpInterpSimple contained extend keepend
   syn region  phpBacktick matchgroup=None start=+`+ skip=+\\\\\|\\"+ end=+`+  contains=@phpAddStrings,phpIdentifier,phpSpecialChar,phpIdentifierSimply,phpIdentifierComplex contained extend keepend
   syn region  phpStringSingle matchgroup=None start=+'+ skip=+\\\\\|\\'+ end=+'+  contains=@phpAddStrings,phpSingleSpecialChar contained keepend extend
 endif
@@ -456,12 +466,6 @@ endif
 " Peter Hodge - June 9, 2006
 " Some of these changes (highlighting isset/unset/echo etc) are not so
 " critical, but they make things more colourful. :-)
-
-" corrected highlighting for an escaped '\$' inside a double-quoted string
-syn match phpSpecialChar  "\\\$"  contained display
-
-" highlight object variables inside strings
-syn match phpMethodsVar "->\h\w*" contained contains=phpMethods,phpMemberSelector display containedin=phpStringDouble
 
 " highlight constant E_STRICT
 syntax case match
@@ -620,6 +624,7 @@ if version >= 508 || !exists("did_php_syn_inits")
   HiLink   phpIdentifierConst Delimiter
   HiLink   phpParentError Error
   HiLink   phpOctalError  Error
+  HiLink   phpInterpEmptyKey Error
   HiLink   phpTodo  Todo
   HiLink   phpMemberSelector  Structure
   if exists("php_oldStyle")
