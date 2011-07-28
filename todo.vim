@@ -1,20 +1,24 @@
-highlight level1 ctermfg=LightGrey ctermbg=Red
-highlight level2 ctermfg=Red
-highlight level3 ctermfg=DarkRed
-highlight level4 ctermfg=DarkYellow
-highlight VICTORY ctermfg=Black ctermbg=Blue
-highlight maybedone ctermfg=DarkGreen
-highlight headline ctermfg=Black ctermbg=LightGrey
-"highlight moot ctermfg=DarkGrey ctermbg=Black
+highlight partial ctermfg=DarkYellow
+highlight done ctermfg=DarkGreen
+highlight maybedone ctermfg=Blue
+highlight headline ctermfg=White cterm=bold,underline
+highlight moot ctermfg=DarkGrey
 
-syntax match level1 /^[*][*][*][*][	 ]\+\zs.*/
-syntax match level2 /^[*][*][*][	 ]\+\zs.*/
-syntax match level3 /^[*][*][	 ]\+\zs.*/
-syntax match level4 /^[*][	 ]\+\zs.*/
-syntax match VICTORY /^\(VICTORY\|DONE\|YAY\)!\?[	 ]\+\zs.*/
-syntax match maybedone /^\(done\)\??[ 	]\+\zs.*/
-syntax match moot /^[#].*/
-syntax match headline /^ \+\zs[^	]*/
+syntax match partial /^*\+\t\+\zs.*p[0-9]$/
+syntax match done /^\(VICTORY\|DONE\|done\|YAY\|:)\|!\|+\)!\?\t\+\zs.*/
+syntax match done /^\*\+\t\+\zs.*[^0-9]$/
+syntax match done /^\*\+\t\+\zs.*p1$/
+syntax match done /^\*\*\+\t\+\zs.*p2$/
+syntax match done /^\*\*\*\+\t\+\zs.*p3$/
+syntax match done /^\*\*\*\*\+\t\+\zs.*p4$/
+syntax match done /^\*\*\*\*\*\+\t\+\zs.*p5$/
+syntax match done /^\*\*\*\*\*\*\+\t\+\zs.*p6$/
+syntax match done /^\*\*\*\*\*\*\*\+\t\+\zs.*p7$/
+syntax match done /^\*\*\*\*\*\*\*\*\+\t\+\zs.*p8$/
+syntax match done /^\*\*\*\*\*\*\*\*\*\+\t\+\zs.*p9$/
+syntax match maybedone /^\(done\)\??\t\+\zs.*/
+syntax match moot /^[#]\t\+.*/
+syntax match headline /^ \+\zs[^\t]*/
 
 set tabstop=8
 set shiftwidth=8
