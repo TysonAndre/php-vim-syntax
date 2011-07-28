@@ -303,20 +303,32 @@ syn region  phpIdentifierComplex  matchgroup=phpParent start="{\$"rs=e-1 end="}"
 syn region  phpIdentifierComplexP matchgroup=phpParent start="\[" end="]" contains=@phpClInside contained
 
 " Interpolated indentifiers (inside strings)
-	syn match phpInterpEmptyKey "\[\]" contained display
-	syn match phpInterpEmptyKey "->[^a-zA-Z_]" contained display
-	syn match phpInterpBogusDollarCurley "${\H\?}"
-	syn match phpInterpSimple "\$\h\w*\(\[\w*\]\|->\h*\w*\)\?" contained contains=phpIdentifier,phpInterpEmptyKey,phpMethods,phpMemberSelector display
+	" errors
+		syn match phpInterpEmptyKey "\[\]" contained display
+		syn match phpInterpEmptyKey "->[^a-zA-Z_]" contained display
+		" make sure these stay above the correct DollarCurlies so they don't take priority
+		syn match phpInterpBogusDollarCurley "${.*}" contained display
+	syn match phpBrackets "[][}{]" contained display
+	syn match phpinterpSimpleBracketsInner "\w\+" contained
+	syn match phpInterpSimpleBrackets "\[\w*]" contained contains=phpBrackets,phpInterpSimpleBracketsInner
+	syn match phpInterpSimple "\$\h\w*\(\[\w*\]\|->\h\w*\)\?" contained contains=phpInterpSimpleBrackets,phpIdentifier,phpInterpEmptyKey,phpMethods,phpMemberSelector display
 	syn match phpInterpVarname "\h\w*" contained
 	syn match phpInterpMethodName "\h\w*" contained " default color
 	syn match phpInterpSimpleCurly "\${\h\w*}"  contains=phpInterpVarname contained extend
-	" FIXME: figure out how to get the varname at the begining colored on these next two
-	syn region phpInterpDollarCurly matchgroup=phpParent start="\${\h\w*\[" end="]}" contains=@phpClConst contained extend
-	syn region phpInterpDollarCurly2 matchgroup=phpParent start="\${\h\w*->" end="}" contains=phpInterpMethodName contained
+	syn region phpInterpDollarCurley1Helper matchgroup=phpParent start="{" end="\[" contains=phpInterpVarname contained
+	syn region phpInterpDollarCurly1 matchgroup=phpParent start="\${\h\w*\["rs=s+1 end="]}" contains=phpInterpDollarCurley1Helper,@phpClConst contained extend
+
+	syn match phpInterpDollarCurley2Helper "{\h\w*->" contains=phpBrackets,phpInterpVarname,phpMemberSelector contained
+
+	syn region phpInterpDollarCurly2 matchgroup=phpParent start="\${\h\w*->"rs=s+1 end="}" contains=phpInterpDollarCurley2Helper,phpInterpMethodName contained
+
+	syn match phpInterpBogusDollarCurley "${\h\w*->}" contained display
+	syn match phpInterpBogusDollarCurley "${\h\w*\[]}" contained display
+
 	syn region phpInterpComplex matchgroup=phpParent start="{\$"rs=e-1 end="}" contains=phpIdentifier,phpMemberSelector,phpVarSelector,phpIdentifierComplexP contained extend
 	syn region phpIdentifierComplexP matchgroup=phpParent start="\[" end="]" contains=@phpClInside contained
 	" define a cluster to get all interpolation syntaxes for double-quoted strings
-	syn cluster phpInterpDouble contains=phpInterpSimple,phpInterpSimpleCurly,phpInterpDollarCurly,phpInterpDollarCurly2,phpInterpBogusDollarCurley,phpInterpComplex
+	syn cluster phpInterpDouble contains=phpInterpSimple,phpInterpSimpleCurly,phpInterpDollarCurly1,phpInterpDollarCurly2,phpInterpBogusDollarCurley,phpInterpComplex
 
 " Methoden
 syn match phpMethodsVar "->\h\w*" contained contains=phpMethods,phpMemberSelector display
@@ -633,13 +645,15 @@ if version >= 508 || !exists("did_php_syn_inits")
   HiLink   phpBackslashDoubleQuote SpecialChar
   HiLink   phpBackslashSingleQuote SpecialChar
   HiLink   phpParent  Delimiter
+  HiLink   phpBrackets  Delimiter
   HiLink   phpIdentifierConst Delimiter
   HiLink   phpParentError Error
   HiLink   phpOctalError  Error
   HiLink   phpInterpEmptyKey Error
   HiLink   phpInterpBogusDollarCurley Error
-  HiLink   phpInterpDollarCurly Error
+  HiLink   phpInterpDollarCurly1 Error
   HiLink   phpInterpDollarCurly2 Error
+  HiLink   phpInterpSimpleBracketsInner String
   HiLink   phpInterpSimpleCurly Delimiter
   HiLink   phpInterpVarname Identifier
   HiLink   phpTodo  Todo
