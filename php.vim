@@ -297,10 +297,10 @@ syn region  phpIdentifierComplexP matchgroup=phpParent start="\[" end="]" contai
 " Interpolated indentifiers (inside strings)
 	syn match phpBrackets "[][}{]" contained display
 	" errors
-		syn match phpInterpSimpleError "\[[^]]*\]" contained display
+		syn match phpInterpSimpleError "\[[^]]*\]" contained display  " fallback (if nothing else matches)
 		syn match phpInterpSimpleError "->[^a-zA-Z_]" contained display
 		" make sure these stay above the correct DollarCurlies so they don't take priority
-		syn match phpInterpBogusDollarCurley "${.*}" contained display
+		syn match phpInterpBogusDollarCurley "${[^}]*}" contained display  " fallback (if nothing else matches)
 	syn match phpinterpSimpleBracketsInner "\w\+" contained
 	syn match phpInterpSimpleBrackets "\[\h\w*]" contained contains=phpBrackets,phpInterpSimpleBracketsInner
 	syn match phpInterpSimpleBrackets "\[\d\+]" contained contains=phpBrackets,phpInterpSimpleBracketsInner
