@@ -295,15 +295,17 @@ syn region  phpIdentifierComplex  matchgroup=phpParent start="{\$"rs=e-1 end="}"
 syn region  phpIdentifierComplexP matchgroup=phpParent start="\[" end="]" contains=@phpClInside contained
 
 " Interpolated indentifiers (inside strings)
+	syn match phpBrackets "[][}{]" contained display
 	" errors
-		syn match phpInterpEmptyKey "\[\]" contained display
-		syn match phpInterpEmptyKey "->[^a-zA-Z_]" contained display
+		syn match phpInterpSimpleError "\[[^]]*\]" contained display
+		syn match phpInterpSimpleError "->[^a-zA-Z_]" contained display
 		" make sure these stay above the correct DollarCurlies so they don't take priority
 		syn match phpInterpBogusDollarCurley "${.*}" contained display
-	syn match phpBrackets "[][}{]" contained display
 	syn match phpinterpSimpleBracketsInner "\w\+" contained
-	syn match phpInterpSimpleBrackets "\[\w*]" contained contains=phpBrackets,phpInterpSimpleBracketsInner
-	syn match phpInterpSimple "\$\h\w*\(\[\w*\]\|->\h\w*\)\?" contained contains=phpInterpSimpleBrackets,phpIdentifier,phpInterpEmptyKey,phpMethods,phpMemberSelector display
+	syn match phpInterpSimpleBrackets "\[\h\w*]" contained contains=phpBrackets,phpInterpSimpleBracketsInner
+	syn match phpInterpSimpleBrackets "\[\d\+]" contained contains=phpBrackets,phpInterpSimpleBracketsInner
+	syn match phpInterpSimpleBrackets "\[0[xX]\x\+]" contained contains=phpBrackets,phpInterpSimpleBracketsInner
+	syn match phpInterpSimple "\$\h\w*\(\[[^]]*\]\|->\h\w*\)\?" contained contains=phpInterpSimpleBrackets,phpIdentifier,phpInterpSimpleError,phpMethods,phpMemberSelector display
 	syn match phpInterpVarname "\h\w*" contained
 	syn match phpInterpMethodName "\h\w*" contained " default color
 	syn match phpInterpSimpleCurly "\${\h\w*}"  contains=phpInterpVarname contained extend
@@ -653,7 +655,7 @@ if version >= 508 || !exists("did_php_syn_inits")
   HiLink   phpIdentifierConst Delimiter
   HiLink   phpParentError Error
   HiLink   phpOctalError  Error
-  HiLink   phpInterpEmptyKey Error
+  HiLink   phpInterpSimpleError Error
   HiLink   phpInterpBogusDollarCurley Error
   HiLink   phpInterpDollarCurly1 Error
   HiLink   phpInterpDollarCurly2 Error
