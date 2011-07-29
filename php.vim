@@ -123,7 +123,7 @@ syn keyword phpCoreConstant PHP_VERSION PHP_OS DEFAULT_INCLUDE_PATH PEAR_INSTALL
 
 syn case ignore
 
-syn keyword phpConstant  __LINE__ __FILE__ __FUNCTION__ __METHOD__ __CLASS__  contained
+syn keyword phpConstant  __LINE__ __FILE__ __FUNCTION__ __METHOD__ __CLASS__ __DIR__ __NAMESPACE__  contained
 
 
 " Function and Methods ripped from php_manual_de.tar.gz Jan 2003
@@ -265,7 +265,7 @@ syn keyword phpRepeat as do endfor endforeach endwhile for foreach while  contai
 syn keyword phpLabel  case default switch contained
 
 " Statement
-syn keyword phpStatement  return break continue exit  contained
+syn keyword phpStatement  return break continue exit goto  contained
 
 " Keyword
 syn keyword phpKeyword  var const contained
@@ -274,7 +274,7 @@ syn keyword phpKeyword  var const contained
 syn keyword phpType bool[ean] int[eger] real double float string array object NULL  contained
 
 " Structure
-syn keyword phpStructure  extends implements instanceof parent self contained
+syn keyword phpStructure  namespace extends implements instanceof parent self contained
 
 " Operator
 syn match phpOperator "[-=+%^&|*!.~?:]" contained display
@@ -326,7 +326,7 @@ syn region  phpIdentifierComplexP matchgroup=phpParent start="\[" end="]" contai
 syn match phpMethodsVar "->\h\w*" contained contains=phpMethods,phpMemberSelector display
 
 " Include
-syn keyword phpInclude  include require include_once require_once contained
+syn keyword phpInclude  include require include_once require_once use contained
 
 " Peter Hodge - added 'clone' keyword
 " Define
@@ -486,6 +486,9 @@ else
   syn keyword phpException  catch throw try contained
   syn keyword phpStorageClass final global private protected public static  contained
 endif
+
+" TODO: fold on "trait". For now just make sure it gets colored:
+syn keyword phpStructure trait
 
 " ================================================================
 " Peter Hodge - June 9, 2006
