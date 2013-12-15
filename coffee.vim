@@ -15,7 +15,7 @@ endif
 syn include @coffeeJS syntax/javascript.vim
 
 " Highlight long strings.
-syn sync minlines=100
+syn sync minlines=2000
 
 " CoffeeScript allows dollar signs in identifiers.
 setlocal isident+=$
