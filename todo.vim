@@ -6,6 +6,7 @@ highlight moot ctermfg=DarkGrey
 
 syntax match partial /^*\+\t\+\zs.*p[0-9]\{1,2}$/
 syntax match done /^\(VICTORY\|DONE\|done\|YAY\|:)\|!\|+\)!\?\t\+\zs.*/
+syntax match done /^\*\+\t\+\zs[0-9]\+$/
 syntax match done /^\*\+\t\+\zs.*[^0-9]$/
 syntax match done /^\*\+\t\+\zs.*[^p0-9].$/
 syntax match done /^\*\+\t\+\zs.*[^p][0-9][0-9]$/
