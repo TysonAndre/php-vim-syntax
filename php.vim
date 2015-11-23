@@ -1,7 +1,7 @@
 " Vim syntax file
 " Language: php PHP 3/4/5
 " Maintainer: Jason Woofenden <jason@jasonwoof.com>
-" Last Change: Mar 24, 2015
+" Last Change: Nov 23, 2015
 " URL: https://jasonwoof.com/gitweb/?p=vim-syntax.git;a=blob;f=php.vim;hb=HEAD
 " Former Maintainers: Peter Hodge <toomuchphp-vim@yahoo.com>
 "         Debian VIM Maintainers <pkg-vim-maintainers@lists.alioth.debian.org>
@@ -280,7 +280,7 @@ syn keyword phpStatement  return break continue exit goto  contained
 syn keyword phpKeyword  var const contained
 
 " Type
-syn keyword phpType bool[ean] int[eger] real double float string array object NULL  contained
+syn keyword phpType bool boolean int integer real double float string array object NULL  contained
 
 " Structure
 syn keyword phpStructure  namespace extends implements instanceof parent self contained
