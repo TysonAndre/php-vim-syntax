@@ -1,7 +1,7 @@
 " Vim syntax file
 " Language: php PHP 3/4/5/7
 " Maintainer: Jason Woofenden <jason@jasonwoof.com>
-" Last Change: Jul 27, 2016
+" Last Change: Dec 05, 2016
 " URL: https://jasonwoof.com/gitweb/?p=vim-syntax.git;a=blob;f=php.vim;hb=HEAD
 " Former Maintainers: Peter Hodge <toomuchphp-vim@yahoo.com>
 "         Debian VIM Maintainers <pkg-vim-maintainers@lists.alioth.debian.org>
@@ -519,7 +519,7 @@ syntax keyword phpSpecialFunction containedin=ALLBUT,phpComment,phpStringDouble,
 " Highlighting for __autoload slightly different from line above
 syntax keyword phpSpecialFunction containedin=ALLBUT,phpComment,phpStringDouble,phpStringSingle,phpIdentifier,phpMethodsVar
   \ __autoload
-highlight link phpSpecialFunction phpOperator
+highlight def link phpSpecialFunction phpOperator
 
 " Highlighting for PHP5's built-in classes
 " - built-in classes harvested from get_declared_classes() in 5.1.4
@@ -542,14 +542,14 @@ syntax keyword phpClasses containedin=ALLBUT,phpComment,phpStringDouble,phpStrin
   \ DOMCharacterData DOMAttr DOMElement DOMText DOMComment DOMTypeinfo DOMUserDataHandler
   \ DOMLocator DOMConfiguration DOMCdataSection DOMDocumentType DOMNotation DOMEntity
   \ DOMEntityReference DOMProcessingInstruction DOMStringExtend DOMXPath
-highlight link phpClasses phpFunctions
+highlight def link phpClasses phpFunctions
 
 " Highlighting for PHP5's built-in interfaces
 " - built-in classes harvested from get_declared_interfaces() in 5.1.4
 syntax keyword phpInterfaces containedin=ALLBUT,phpComment,phpStringDouble,phpStringSingle,phpIdentifier,phpMethodsVar
   \ Iterator IteratorAggregate RecursiveIterator OuterIterator SeekableIterator
   \ Traversable ArrayAccess Serializable Countable SplObserver SplSubject Reflector
-highlight link phpInterfaces phpConstant
+highlight def link phpInterfaces phpConstant
 
 " option defaults:
 if ! exists('php_special_functions')
@@ -577,7 +577,7 @@ endif
 if php_alt_assignByReference
     " special highlighting for '=&' operator
     syntax match phpAssignByRef /=\s*&/ containedin=ALLBUT,phpComment,phpStringDouble,phpStringSingle
-    highlight link phpAssignByRef Type
+    highlight def link phpAssignByRef Type
 endif
 
 if php_alt_comparisons
@@ -589,7 +589,7 @@ if php_alt_comparisons
   syntax case ignore
   syntax keyword phpComparison instanceof contained containedin=phpRegion
 
-  hi link phpComparison Statement
+  hi def link phpComparison Statement
 endif
 
 " ================================================================
@@ -677,13 +677,13 @@ if version >= 508 || !exists("did_php_syn_inits")
   HiLink   phpDocTodo Todo
   HiLink   phpMemberSelector  Structure
   if exists("php_oldStyle")
-  hi  phpIntVar guifg=Red ctermfg=DarkRed
-  hi  phpEnvVar guifg=Red ctermfg=DarkRed
-  hi  phpOperator guifg=SeaGreen ctermfg=DarkGreen
-  hi  phpVarSelector guifg=SeaGreen ctermfg=DarkGreen
-  hi  phpRelation guifg=SeaGreen ctermfg=DarkGreen
-  hi  phpIdentifier guifg=DarkGray ctermfg=Brown
-  hi  phpIdentifierSimply guifg=DarkGray ctermfg=Brown
+  hi def phpIntVar guifg=Red ctermfg=DarkRed
+  hi def phpEnvVar guifg=Red ctermfg=DarkRed
+  hi def phpOperator guifg=SeaGreen ctermfg=DarkGreen
+  hi def phpVarSelector guifg=SeaGreen ctermfg=DarkGreen
+  hi def phpRelation guifg=SeaGreen ctermfg=DarkGreen
+  hi def phpIdentifier guifg=DarkGray ctermfg=Brown
+  hi def phpIdentifierSimply guifg=DarkGray ctermfg=Brown
   else
   HiLink   phpIntVar Identifier
   HiLink   phpEnvVar Identifier
