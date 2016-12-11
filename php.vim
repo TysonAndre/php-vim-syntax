@@ -1,7 +1,7 @@
 " Vim syntax file
 " Language: php PHP 3/4/5/7
 " Maintainer: Jason Woofenden <jason@jasonwoof.com>
-" Last Change: Dec 05, 2016
+" Last Change: Dec 11, 2016
 " URL: https://jasonwoof.com/gitweb/?p=vim-syntax.git;a=blob;f=php.vim;hb=HEAD
 " Former Maintainers: Peter Hodge <toomuchphp-vim@yahoo.com>
 "         Debian VIM Maintainers <pkg-vim-maintainers@lists.alioth.debian.org>
@@ -620,63 +620,52 @@ syntax region phpDocTags  start="{@\(example\|id\|internal\|inheritdoc\|link\|so
 syntax match  phpDocTags  "@\(abstract\|access\|author\|category\|copyright\|deprecated\|example\|final\|global\|ignore\|internal\|license\|link\|method\|name\|package\|param\|property\|return\|see\|since\|static\|staticvar\|subpackage\|tutorial\|uses\|var\|version\|contributor\|modified\|filename\|description\|filesource\|throws\)\(\s\+\)\?" containedin=phpComment
 syntax match  phpDocTodo  "@\(todo\|fixme\|xxx\)\(\s\+\)\?" containedin=phpComment
 
-" Define the default highlighting.
-" For version 5.7 and earlier: only when not done already
-" For version 5.8 and later: only when an item doesn't have highlighting yet
-if version >= 508 || !exists("did_php_syn_inits")
-  if version < 508
-    let did_php_syn_inits = 1
-    command -nargs=+ HiLink hi link <args>
-  else
-    command -nargs=+ HiLink hi def link <args>
-  endif
-
-  HiLink   phpConstant  Constant
-  HiLink   phpCoreConstant  Constant
-  HiLink   phpComment Comment
-  HiLink   phpDocTags PreProc
-  HiLink   phpDocCustomTags Type
-  HiLink   phpException Exception
-  HiLink   phpBoolean Boolean
-  HiLink   phpStorageClass  StorageClass
-  HiLink   phpSCKeyword StorageClass
-  HiLink   phpFCKeyword Define
-  HiLink   phpStructure Structure
-  HiLink   phpStringSingle  String
-  HiLink   phpStringDouble  String
-  HiLink   phpBacktick  String
-  HiLink   phpNumber  Number
-  HiLink   phpFloat Float
-  HiLink   phpMethods Function
-  HiLink   phpFunctions Function
-  HiLink   phpBaselib Function
-  HiLink   phpRepeat  Repeat
-  HiLink   phpConditional Conditional
-  HiLink   phpLabel Label
-  HiLink   phpStatement Statement
-  HiLink   phpKeyword Statement
-  HiLink   phpType  Type
-  HiLink   phpInclude Include
-  HiLink   phpDefine  Define
-  HiLink   phpBackslashSequences SpecialChar
-  HiLink   phpBackslashDoubleQuote SpecialChar
-  HiLink   phpBackslashSingleQuote SpecialChar
-  HiLink   phpParent  Delimiter
-  HiLink   phpBrackets  Delimiter
-  HiLink   phpIdentifierConst Delimiter
-  HiLink   phpParentError Error
-  HiLink   phpOctalError  Error
-  HiLink   phpInterpSimpleError Error
-  HiLink   phpInterpBogusDollarCurley Error
-  HiLink   phpInterpDollarCurly1 Error
-  HiLink   phpInterpDollarCurly2 Error
-  HiLink   phpInterpSimpleBracketsInner String
-  HiLink   phpInterpSimpleCurly Delimiter
-  HiLink   phpInterpVarname Identifier
-  HiLink   phpTodo  Todo
-  HiLink   phpDocTodo Todo
-  HiLink   phpMemberSelector  Structure
-  if exists("php_oldStyle")
+hi def link phpConstant  Constant
+hi def link phpCoreConstant  Constant
+hi def link phpComment Comment
+hi def link phpDocTags PreProc
+hi def link phpDocCustomTags Type
+hi def link phpException Exception
+hi def link phpBoolean Boolean
+hi def link phpStorageClass  StorageClass
+hi def link phpSCKeyword StorageClass
+hi def link phpFCKeyword Define
+hi def link phpStructure Structure
+hi def link phpStringSingle  String
+hi def link phpStringDouble  String
+hi def link phpBacktick  String
+hi def link phpNumber  Number
+hi def link phpFloat Float
+hi def link phpMethods Function
+hi def link phpFunctions Function
+hi def link phpBaselib Function
+hi def link phpRepeat  Repeat
+hi def link phpConditional Conditional
+hi def link phpLabel Label
+hi def link phpStatement Statement
+hi def link phpKeyword Statement
+hi def link phpType  Type
+hi def link phpInclude Include
+hi def link phpDefine  Define
+hi def link phpBackslashSequences SpecialChar
+hi def link phpBackslashDoubleQuote SpecialChar
+hi def link phpBackslashSingleQuote SpecialChar
+hi def link phpParent  Delimiter
+hi def link phpBrackets  Delimiter
+hi def link phpIdentifierConst Delimiter
+hi def link phpParentError Error
+hi def link phpOctalError  Error
+hi def link phpInterpSimpleError Error
+hi def link phpInterpBogusDollarCurley Error
+hi def link phpInterpDollarCurly1 Error
+hi def link phpInterpDollarCurly2 Error
+hi def link phpInterpSimpleBracketsInner String
+hi def link phpInterpSimpleCurly Delimiter
+hi def link phpInterpVarname Identifier
+hi def link phpTodo  Todo
+hi def link phpDocTodo Todo
+hi def link phpMemberSelector  Structure
+if exists("php_oldStyle")
   hi def phpIntVar guifg=Red ctermfg=DarkRed
   hi def phpEnvVar guifg=Red ctermfg=DarkRed
   hi def phpOperator guifg=SeaGreen ctermfg=DarkGreen
@@ -684,17 +673,14 @@ if version >= 508 || !exists("did_php_syn_inits")
   hi def phpRelation guifg=SeaGreen ctermfg=DarkGreen
   hi def phpIdentifier guifg=DarkGray ctermfg=Brown
   hi def phpIdentifierSimply guifg=DarkGray ctermfg=Brown
-  else
-  HiLink   phpIntVar Identifier
-  HiLink   phpEnvVar Identifier
-  HiLink   phpOperator Operator
-  HiLink   phpVarSelector  Operator
-  HiLink   phpRelation Operator
-  HiLink   phpIdentifier Identifier
-  HiLink   phpIdentifierSimply Identifier
-  endif
-
-  delcommand HiLink
+else
+  hi def link phpIntVar Identifier
+  hi def link phpEnvVar Identifier
+  hi def link phpOperator Operator
+  hi def link phpVarSelector  Operator
+  hi def link phpRelation Operator
+  hi def link phpIdentifier Identifier
+  hi def link phpIdentifierSimply Identifier
 endif
 
 let b:current_syntax = "php"
