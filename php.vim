@@ -55,11 +55,8 @@
 "    ii) Same problem if you are setting php_folding = 2 with a closing
 "        } inside an string on the first line of this string.
 
-" For version 5.x: Clear all syntax items
-" For version 6.x: Quit when a syntax file was already loaded
-if version < 600
-  syntax clear
-elseif exists("b:current_syntax")
+" quit when a syntax file was already loaded
+if exists("b:current_syntax")
   finish
 endif
 
@@ -67,16 +64,8 @@ if !exists("main_syntax")
   let main_syntax = 'php'
 endif
 
-if version < 600
-  unlet! php_folding
-  if exists("php_sync_method") && !php_sync_method
-    let php_sync_method=-1
-  endif
-  so <sfile>:p:h/html.vim
-else
-  runtime! syntax/html.vim
-  unlet b:current_syntax
-endif
+runtime! syntax/html.vim
+unlet b:current_syntax
 
 " accept old options
 if !exists("php_sync_method")
@@ -94,11 +83,7 @@ endif
 
 syn cluster htmlPreproc add=phpRegion,phpRegionAsp,phpRegionSc
 
-if version < 600
-  syn include @sqlTop <sfile>:p:h/sql.vim
-else
-  syn include @sqlTop syntax/sql.vim
-endif
+syn include @sqlTop syntax/sql.vim
 syn sync clear
 unlet b:current_syntax
 syn cluster sqlTop remove=sqlString,sqlComment
@@ -381,15 +366,8 @@ if exists("php_parent_error_open")
 else
   syn region  phpComment  start="/\*" end="\*/" contained contains=phpTodo,@Spell extend
 endif
-if version >= 600
-  syn match phpComment  "#.\{-}\(?>\|$\)\@="  contained contains=phpTodo,@Spell
-  syn match phpComment  "//.\{-}\(?>\|$\)\@=" contained contains=phpTodo,@Spell
-else
-  syn match phpComment  "#.\{-}$" contained contains=phpTodo,@Spell
-  syn match phpComment  "#.\{-}?>"me=e-2  contained contains=phpTodo,@Spell
-  syn match phpComment  "//.\{-}$"  contained contains=phpTodo,@Spell
-  syn match phpComment  "//.\{-}?>"me=e-2 contained contains=phpTodo,@Spell
-endif
+syn match phpComment  "#.\{-}\(?>\|$\)\@="  contained contains=phpTodo,@Spell
+syn match phpComment  "//.\{-}\(?>\|$\)\@=" contained contains=phpTodo,@Spell
 
 " String
 if exists("php_parent_error_open")
@@ -403,24 +381,22 @@ else
 endif
 
 " HereDoc and NowDoc
-if version >= 600
-  syn case match
+syn case match
 
-  " HereDoc
-  syn region  phpHereDoc  matchgroup=Delimiter start="\(<<<\)\@<=\(\"\=\)\z(\I\i*\)\2$" end="^\z1\(;\=$\)\@=" contained contains=phpIdentifier,phpIdentifierSimply,phpIdentifierComplex,phpBackslashSequences,phpMethodsVar,@Spell keepend extend
+" HereDoc
+syn region  phpHereDoc  matchgroup=Delimiter start="\(<<<\)\@<=\(\"\=\)\z(\I\i*\)\2$" end="^\z1\(;\=$\)\@=" contained contains=phpIdentifier,phpIdentifierSimply,phpIdentifierComplex,phpBackslashSequences,phpMethodsVar,@Spell keepend extend
 " including HTML,JavaScript,SQL even if not enabled via options
-  syn region  phpHereDoc  matchgroup=Delimiter start="\(<<<\)\@<=\(\"\=\)\z(\(\I\i*\)\=\(html\)\c\(\i*\)\)\2$" end="^\z1\(;\=$\)\@="  contained contains=@htmlTop,phpIdentifier,phpIdentifierSimply,phpIdentifierComplex,phpBackslashSequences,phpMethodsVar,@Spell keepend extend
-  syn region  phpHereDoc  matchgroup=Delimiter start="\(<<<\)\@<=\(\"\=\)\z(\(\I\i*\)\=\(sql\)\c\(\i*\)\)\2$" end="^\z1\(;\=$\)\@=" contained contains=@sqlTop,phpIdentifier,phpIdentifierSimply,phpIdentifierComplex,phpBackslashSequences,phpMethodsVar,@Spell keepend extend
-  syn region  phpHereDoc  matchgroup=Delimiter start="\(<<<\)\@<=\(\"\=\)\z(\(\I\i*\)\=\(javascript\)\c\(\i*\)\)\2$" end="^\z1\(;\=$\)\@="  contained contains=@htmlJavascript,phpIdentifierSimply,phpIdentifier,phpIdentifierComplex,phpBackslashSequences,phpMethodsVar,@Spell keepend extend
+syn region  phpHereDoc  matchgroup=Delimiter start="\(<<<\)\@<=\(\"\=\)\z(\(\I\i*\)\=\(html\)\c\(\i*\)\)\2$" end="^\z1\(;\=$\)\@="  contained contains=@htmlTop,phpIdentifier,phpIdentifierSimply,phpIdentifierComplex,phpBackslashSequences,phpMethodsVar,@Spell keepend extend
+syn region  phpHereDoc  matchgroup=Delimiter start="\(<<<\)\@<=\(\"\=\)\z(\(\I\i*\)\=\(sql\)\c\(\i*\)\)\2$" end="^\z1\(;\=$\)\@=" contained contains=@sqlTop,phpIdentifier,phpIdentifierSimply,phpIdentifierComplex,phpBackslashSequences,phpMethodsVar,@Spell keepend extend
+syn region  phpHereDoc  matchgroup=Delimiter start="\(<<<\)\@<=\(\"\=\)\z(\(\I\i*\)\=\(javascript\)\c\(\i*\)\)\2$" end="^\z1\(;\=$\)\@="  contained contains=@htmlJavascript,phpIdentifierSimply,phpIdentifier,phpIdentifierComplex,phpBackslashSequences,phpMethodsVar,@Spell keepend extend
 
-  " NowDoc
-  syn region  phpNowDoc  matchgroup=Delimiter start="\(<<<\)\@<='\z(\I\i*\)'$" end="^\z1\(;\=$\)\@=" contained contains=@Spell keepend extend
+" NowDoc
+syn region  phpNowDoc  matchgroup=Delimiter start="\(<<<\)\@<='\z(\I\i*\)'$" end="^\z1\(;\=$\)\@=" contained contains=@Spell keepend extend
 " including HTML,JavaScript,SQL even if not enabled via options
-  syn region  phpNowDoc  matchgroup=Delimiter start="\(<<<\)\@<='\z(\(\I\i*\)\=\(html\)\c\(\i*\)\)'$" end="^\z1\(;\=$\)\@="  contained contains=@htmlTop,@Spell keepend extend
-  syn region  phpNowDoc  matchgroup=Delimiter start="\(<<<\)\@<='\z(\(\I\i*\)\=\(sql\)\c\(\i*\)\)'$" end="^\z1\(;\=$\)\@=" contained contains=@sqlTop,@Spell keepend extend
-  syn region  phpNowDoc  matchgroup=Delimiter start="\(<<<\)\@<='\z(\(\I\i*\)\=\(javascript\)\c\(\i*\)\)'$" end="^\z1\(;\=$\)\@="  contained contains=@htmlJavascript,@Spell keepend extend
-  syn case ignore
-endif
+syn region  phpNowDoc  matchgroup=Delimiter start="\(<<<\)\@<='\z(\(\I\i*\)\=\(html\)\c\(\i*\)\)'$" end="^\z1\(;\=$\)\@="  contained contains=@htmlTop,@Spell keepend extend
+syn region  phpNowDoc  matchgroup=Delimiter start="\(<<<\)\@<='\z(\(\I\i*\)\=\(sql\)\c\(\i*\)\)'$" end="^\z1\(;\=$\)\@=" contained contains=@sqlTop,@Spell keepend extend
+syn region  phpNowDoc  matchgroup=Delimiter start="\(<<<\)\@<='\z(\(\I\i*\)\=\(javascript\)\c\(\i*\)\)'$" end="^\z1\(;\=$\)\@="  contained contains=@htmlJavascript,@Spell keepend extend
+syn case ignore
 
 " Parent
 if exists("php_parent_error_close") || exists("php_parent_error_open")
@@ -620,6 +596,9 @@ syntax region phpDocTags  start="{@\(example\|id\|internal\|inheritdoc\|link\|so
 syntax match  phpDocTags  "@\(abstract\|access\|author\|category\|copyright\|deprecated\|example\|final\|global\|ignore\|internal\|license\|link\|method\|name\|package\|param\|property\|return\|see\|since\|static\|staticvar\|subpackage\|tutorial\|uses\|var\|version\|contributor\|modified\|filename\|description\|filesource\|throws\)\(\s\+\)\?" containedin=phpComment
 syntax match  phpDocTodo  "@\(todo\|fixme\|xxx\)\(\s\+\)\?" containedin=phpComment
 
+" Define the default highlighting.
+" Only when an item doesn't have highlighting yet
+
 hi def link phpConstant  Constant
 hi def link phpCoreConstant  Constant
 hi def link phpComment Comment
@@ -682,6 +661,7 @@ else
   hi def link phpIdentifier Identifier
   hi def link phpIdentifierSimply Identifier
 endif
+
 
 let b:current_syntax = "php"
 
