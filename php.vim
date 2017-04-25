@@ -13,26 +13,26 @@
 "
 " Options:
 "    Set to anything to enable:
-"       php_sql_query  for SQL syntax highlighting inside strings
-"       php_htmlInStrings  for HTML syntax highlighting inside strings
-"       php_baselib  for highlighting baselib functions
-"       php_asp_tags  for highlighting ASP-style short tags
-"       php_parent_error_close  for highlighting parent error ] or )
-"       php_parent_error_open  for skipping an php end tag, if there exists
-"                              an open ( or [ without a closing one
-"       php_oldStyle  for using old colorstyle
-"       php_noShortTags  don't sync <? ?> as php
+"       php_sql_query           SQL syntax highlighting inside strings
+"       php_htmlInStrings       HTML syntax highlighting inside strings
+"       php_baselib             highlighting baselib functions
+"       php_asp_tags            highlighting ASP-style short tags
+"       php_parent_error_close  highlighting parent error ] or )
+"       php_parent_error_open   skipping an php end tag, if there exists
+"                                 an open ( or [ without a closing one
+"       php_oldStyle            use old colorstyle
+"       php_noShortTags         don't sync <? ?> as php
 "    Set to a specific value:
-"       php_folding = 1  for folding classes and functions
-"       php_folding = 2  for folding all { } regions
-"       php_sync_method = x
-"                         x=-1 to sync by search ( default )
-"                         x>0 to sync at least x lines backwards
-"                         x=0 to sync from start
+"       php_folding = 1         fold classes and functions
+"       php_folding = 2         fold all { } regions
+"       php_sync_method = x  where x is an integer:
+"                         -1  sync by search ( default )
+"                         >0  sync at least x lines backwards
+"                         0   sync from start
 "    Set to 0 to _disable_:      (Added by Peter Hodge On June 9, 2006)
-"       php_special_functions  to highlight functions with abnormal behaviour
-"       php_alt_comparisons  to highlight comparison operators in an alternate colour
-"       php_alt_assignByReference  to highlight '= &' in an alternate colour
+"       php_special_functions = 0      highlight functions with abnormal behaviour
+"       php_alt_comparisons = 0        comparison operators in an alternate colour
+"       php_alt_assignByReference = 0  '= &' in an alternate colour
 "
 "
 " Note:
