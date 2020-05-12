@@ -2,7 +2,7 @@
 " Language: php PHP 3/4/5/7
 " Maintainer: Tyson Andre <tysonandre775@hotmail.com>
 " Last Change: May 11, 2020
-" URL: https://jasonwoof.com/gitweb/?p=vim-syntax.git;a=blob;f=php.vim;hb=HEAD
+" URL: https://github.com/TysonAndre/vim-syntax
 " Former Maintainers: 
 "         Jason Woofenden <jason@jasonwoof.com>
 "         Peter Hodge <toomuchphp-vim@yahoo.com>
