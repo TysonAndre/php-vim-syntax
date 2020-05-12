@@ -444,7 +444,8 @@ endif
 if exists("php_folding") && php_folding==1
 " match one line constructs here and skip them at folding
   syn keyword phpSCKeyword abstract final private protected public static contained
-  syn keyword phpFCKeyword function fn contained
+  syn keyword phpFCKeyword function contained
+  syn keyword phpDefine fn contained
   syn keyword phpStorageClass global contained
   syn match phpDefine "\(\s\|^\)\(abstract\s\+\|final\s\+\|private\s\+\|protected\s\+\|public\s\+\|static\s\+\)*function\(\s\+.*[;}]\)\@=" contained contains=phpSCKeyword
   syn match phpStructure "\(\s\|^\)\(abstract\s\+\|final\s\+\)*\(trait\|class\)\(\s\+.*}\)\@=" contained
