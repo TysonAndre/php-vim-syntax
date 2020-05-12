@@ -330,7 +330,6 @@ syn keyword phpBoolean true false contained
 
 " Float
 " Refer to: https://www.php.net/manual/en/language.types.float.php
-" and https://wiki.php.net/rfc/numeric_literal_separator#restrictions
 syn match phpFloat "\%(\w\|\.\)\@<!\%(\d_\?\|\.\)*\d\%(\d\|_\|\.\)*\%([eE][+-]\=\%(\d\|_\|\.\)\+\)\=\%(\w\|\.\)\@!" contained contains=phpFloatError display
 syn match phpFloatError "\%([eE.][0-9._+-]*\.\|__\|_\(\>\|[eE]\)\|\(\>\|[eE]\)_\)" contained display
 
