@@ -93,7 +93,7 @@ if exists( "php_htmlInStrings")
   syn cluster phpAddStrings add=@htmlTop
 endif
 
-" make sure we can use \ at the begining of the line to do a continuation
+" make sure we can use \ at the beginning of the line to do a continuation
 let s:cpo_save = &cpo
 set cpo&vim
 
@@ -316,7 +316,7 @@ syn region phpIdentifierComplexP matchgroup=phpParent start="\[" end="]" contain
   " define a cluster to get all interpolation syntaxes for double-quoted strings
   syn cluster phpInterpDouble contains=phpInterpSimple,phpInterpSimpleCurly,phpInterpDollarCurly1,phpInterpDollarCurly2,phpInterpBogusDollarCurley,phpInterpComplex
 
-" Methoden
+" Methods
 syn match phpMethodsVar "->\h\w*" contained contains=phpMethods,phpMemberSelector display
 
 " Include
