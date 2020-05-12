@@ -1,9 +1,11 @@
 " Vim syntax file
 " Language: php PHP 3/4/5/7
-" Maintainer: Jason Woofenden <jason@jasonwoof.com>
-" Last Change: Oct 19, 2019
+" Maintainer: Tyson Andre <tysonandre775@hotmail.com>
+" Last Change: May 11, 2020
 " URL: https://jasonwoof.com/gitweb/?p=vim-syntax.git;a=blob;f=php.vim;hb=HEAD
-" Former Maintainers: Peter Hodge <toomuchphp-vim@yahoo.com>
+" Former Maintainers: 
+"         Jason Woofenden <jason@jasonwoof.com>
+"         Peter Hodge <toomuchphp-vim@yahoo.com>
 "         Debian VIM Maintainers <pkg-vim-maintainers@lists.alioth.debian.org>
 "
 " Note: If you are using a colour terminal with dark background, you will
