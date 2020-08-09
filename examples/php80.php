@@ -16,8 +16,14 @@ $result = match($x) {
 call_named_args(named: 123);
 
 try {
-} catch (Exception) { }
+} catch (RuntimeException) { }
 
 // TODO: The PHP 8.0 attributes syntax has not been finalized, so no highlighting support was added
 @@SomeAttribute()
 class C {}
+// NOTE: if these look the same (e.g. in colorscheme elflord), then
+// ':highlight! link Function CursorLine' (or a target other than CursorLine)
+// may visually distinguish internal class names from unknown names.
+new TypeError();
+new CustomClass();
+$x = is_string()
