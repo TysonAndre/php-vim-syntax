@@ -267,7 +267,7 @@ if exists( "php_baselib" )
 endif
 
 " Conditional
-syn keyword phpConditional declare else enddeclare endswitch elseif endif if switch contained
+syn keyword phpConditional declare else enddeclare endswitch elseif endif if switch match contained
 
 " Repeat
 syn keyword phpRepeat as do endfor endforeach endwhile for foreach while contained
@@ -294,7 +294,6 @@ syn match phpOperator "/[^*/]"me=e-1 contained display
 syn match phpOperator "\$" contained display
 syn match phpOperator "&&\|\<and\>" contained display
 syn match phpOperator "||\|\<x\=or\>" contained display
-syn match phpOperator "match" contained display
 syn match phpRelation "[!=<>]=" contained display
 syn match phpRelation "[<>]" contained display
 " PHP 8.0 adds the nullsafe operator ?-> for property access and method calls.

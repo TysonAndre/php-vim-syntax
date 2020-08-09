@@ -8,10 +8,15 @@ if () {
 new ('std'.'Class')();
 
 // Currently, this is folded if php_folding=2. This isn't a function or a class.
+// 'match' has the same higlighting as 'if'.
+// Can be overridden locally with ':highlight! link phpConditional phpOperator'
+// (phpOperator can be replaced with whatever has the right highlighting)
+var $x;
 $result = match($x) {
     1, 2 => -2,
     default => 123,
 };
+match_as_prefix();
 // no highlighting change for named arguments
 call_named_args(named: 123);
 
