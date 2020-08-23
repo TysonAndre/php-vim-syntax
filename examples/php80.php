@@ -11,7 +11,6 @@ new ('std'.'Class')();
 // 'match' has the same higlighting as 'if'.
 // Can be overridden locally with ':highlight! link phpConditional phpOperator'
 // (phpOperator can be replaced with whatever has the right highlighting)
-var $x;
 $result = match($x) {
     1, 2 => -2,
     default => 123,
@@ -32,3 +31,7 @@ class C {}
 new TypeError();
 new CustomClass();
 $x = is_string()
+
+#This is a line comment followed by a PHP 8.0 attribute spanning a single line.
+#[MyAttribute()]
+function example() {}
