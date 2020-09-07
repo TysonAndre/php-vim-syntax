@@ -22,8 +22,6 @@ call_named_args(named: 123);
 try {
 } catch (RuntimeException) { }
 
-// TODO: The PHP 8.0 attributes syntax has not been finalized, so no highlighting support was added
-@@SomeAttribute()
 class C {}
 // NOTE: if these look the same (e.g. in colorscheme elflord), then
 // ':highlight! link Function CursorLine' (or a target other than CursorLine)
