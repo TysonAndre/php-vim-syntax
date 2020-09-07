@@ -566,7 +566,6 @@ syntax keyword phpInterfaces containedin=ALLBUT,phpComment,phpStringDouble,phpSt
   \ Iterator IteratorAggregate RecursiveIterator OuterIterator SeekableIterator
   \ Traversable ArrayAccess Serializable Countable SplObserver SplSubject Reflector
   \ Throwable DateTimeInterface JsonSerializable SessionHandlerInterface SessionIdInterface SessionUpdateTimestampHandlerInterface
-  \
 
 hi def link phpInterfaces phpConstant
 
