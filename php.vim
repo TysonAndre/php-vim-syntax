@@ -423,12 +423,13 @@ syn case ignore
 if exists("php_parent_error_close") || exists("php_parent_error_open")
   syn match phpParent "[{}]" contained
   syn region phpParent matchgroup=Delimiter start="(" end=")" contained contains=@phpClInside transparent
-  syn region phpParent matchgroup=Delimiter start="\[" end="\]" contained contains=@phpClInside transparent
+  syn region phpParent matchgroup=Delimiter start="#\?\[" end="\]" contained contains=@phpClInside transparent
   if !exists("php_parent_error_close")
     syn match phpParent "[\])]" contained
   endif
 else
   syn match phpParent "[({[\]})]" contained
+  syn match phpParent "#\[" contained
 endif
 
 syn cluster phpClConst contains=phpFunctions,phpIdentifier,phpConditional,phpRepeat,phpStatement,phpOperator,phpRelation,phpStringSingle,phpStringDouble,phpBacktick,phpNumber,phpFloat,phpKeyword,phpType,phpBoolean,phpStructure,phpMethodsVar,phpConstant,phpCoreConstant,phpException
