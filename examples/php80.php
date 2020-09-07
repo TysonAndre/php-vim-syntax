@@ -28,7 +28,7 @@ class C {}
 // may visually distinguish internal class names from unknown names.
 new TypeError();
 new CustomClass();
-$x = is_string()
+$x = is_string();
 
 #This is a line comment followed by a PHP 8.0 attribute spanning a single line.
 #[MyAttribute()]
