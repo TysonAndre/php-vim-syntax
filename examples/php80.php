@@ -30,6 +30,8 @@ new TypeError();
 new CustomClass();
 $x = is_string();
 
+var_dump(E_ERROR);
+
 #This is a line comment followed by a PHP 8.0 attribute spanning a single line.
 #[MyAttribute()]
 function example() {}
