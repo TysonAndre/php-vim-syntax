@@ -313,10 +313,14 @@ syn region phpIdentifierComplexP matchgroup=phpParent start="\[" end="]" contain
     syn match phpInterpSimpleError "?\?->[^a-zA-Z_]" contained display
     " make sure these stay above the correct DollarCurlies so they don't take priority
     syn match phpInterpBogusDollarCurley "${[^}]*}" contained display " fallback (if nothing else matches)
-  syn match phpinterpSimpleBracketsInner "\w\+" contained
-  syn match phpInterpSimpleBrackets "\[\h\w*]" contained contains=phpBrackets,phpInterpSimpleBracketsInner
-  syn match phpInterpSimpleBrackets "\[\d\+]" contained contains=phpBrackets,phpInterpSimpleBracketsInner
-  syn match phpInterpSimpleBrackets "\[0[xX]\x\+]" contained contains=phpBrackets,phpInterpSimpleBracketsInner
+  syn match phpInterpSimpleBracketsInner "\w\+" contained
+  syn match phpInterpSimpleBracketsInner "\$\h\w*" contained
+  syn match phpInterpSimpleBrackets "\[\$\?\h\w*]" contained contains=phpBrackets,phpInterpSimpleBracketsInner
+  " -0x1 and -123 refer to the string offsets '-0x1' and '-123' of array keys
+  " TODO: Support [1_2], [-0b1_10_1], etc (also literal strings).
+  syn match phpInterpSimpleBrackets "\[-\?\d\+]" contained contains=phpBrackets,phpInterpSimpleBracketsInner
+  syn match phpInterpSimpleBrackets "\[-\?0[xX]\x\+]" contained contains=phpBrackets,phpInterpSimpleBracketsInner
+  syn match phpInterpSimpleBrackets "\[-\?0[bB][01]\+]" contained contains=phpBrackets,phpInterpSimpleBracketsInner
   syn match phpInterpSimple "\$\h\w*\(\[[^]]*\]\|?\?->\h\w*\)\?" contained contains=phpInterpSimpleBrackets,phpIdentifier,phpInterpSimpleError,phpMethods,phpMemberSelector display
   syn match phpInterpVarname "\h\w*" contained
   syn match phpInterpMethodName "\h\w*" contained " default color
