@@ -1,13 +1,28 @@
+#!/usr/bin/env php
 <?php
 
+/**
+ * This will compare the function and class/trait/interface names found anywhere in syntax/php.vim
+ * against the function names installed in the php binary used to run this script.
+ */
+
+function load_php_vim_syntax(): string {
+    $path = dirname(__DIR__) . '/syntax/php.vim';
+    $contents = file_get_contents($path);
+    if (!is_string($contents)) {
+        throw new RuntimeException("Failed to load $path");
+    }
+    return $contents;
+}
+
 function dump_missing_functions() {
+    $contents = load_php_vim_syntax();
     echo <<<EOT
 ================================================================================
 Missing functions
 ================================================================================
 
 EOT;
-    $contents = file_get_contents('php.vim');
     $token_set = array_flip(array_map('strtolower', preg_split('/\s+/', $contents)));
     $extensions = get_loaded_extensions();
     sort($extensions);
@@ -39,13 +54,13 @@ EOT;
 }
 
 function dump_missing_classes() {
+    $contents = load_php_vim_syntax();
     echo <<<EOT
 ================================================================================
 Missing classes
 ================================================================================
 
 EOT;
-    $contents = file_get_contents('php.vim');
     $token_set = array_flip(array_map('strtolower', preg_split('/\s+/', $contents)));
     $extensions = get_loaded_extensions();
     sort($extensions);
@@ -68,6 +83,9 @@ EOT;
                 $type = 'interface';
             } else {
                 $type = 'trait';
+            }
+            if (strpos($class_name, '\\') !== false) {
+                continue;
             }
             $missing[$type][] = $class_name;
         }
