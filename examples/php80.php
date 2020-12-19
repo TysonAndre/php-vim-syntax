@@ -1,7 +1,7 @@
 <?php
 // PHP 8.0 Nullsafe operators
 $a->foo + $b?->foo + $c?->methodName();
-if () {
+if (true) {
 } else {
 }
 
@@ -19,6 +19,7 @@ match_as_prefix();
 // no highlighting change for named arguments
 call_named_args(named: 123);
 
+// php 8.0 catch without capturing a variable
 try {
 } catch (RuntimeException) { }
 
@@ -28,10 +29,11 @@ class C {}
 // may visually distinguish internal class names from unknown names.
 new TypeError();
 new CustomClass();
-$x = is_string();
+$x = is_string('str');
 
 var_dump(E_ERROR);
 
 #This is a line comment followed by a PHP 8.0 attribute spanning a single line.
 #[MyAttribute()]
 function example() {}
+$noop = fn() => {};
