@@ -29,7 +29,9 @@ class C {}
 // may visually distinguish internal class names from unknown names.
 new TypeError();
 new CustomClass();
+function uses_curl(CurlHandle $x) {}
 $x = is_string('str');
+$y = str_ends_with('exact', 'act');
 
 var_dump(E_ERROR);
 
