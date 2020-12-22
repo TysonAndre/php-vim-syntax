@@ -297,6 +297,7 @@ syn match phpOperator "&&\|\<and\>" contained display
 syn match phpOperator "||\|\<x\=or\>" contained display
 syn match phpRelation "[!=<>]=" contained display
 syn match phpRelation "[<>]" contained display
+syn match phpRelation "<=>" contained display
 " PHP 8.0 adds the nullsafe operator ?-> for property access and method calls.
 syn match phpMemberSelector "?\?->" contained display
 syn match phpVarSelector "\$" contained display
@@ -623,6 +624,7 @@ if php_alt_comparisons
   " highlight comparison operators differently
   syntax match phpComparison "\v[=!]\=\=?" contained containedin=phpRegion
   syntax match phpComparison "\v[=<>-]@<![<>]\=?[<>]@!" contained containedin=phpRegion
+  syntax match phpComparison "<=>" contained containedin=phpRegion
 
   " highlight the 'instanceof' operator as a comparison operator rather than a structure
   syntax case ignore

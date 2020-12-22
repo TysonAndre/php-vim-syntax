@@ -39,3 +39,5 @@ var_dump(E_ERROR);
 #[MyAttribute()]
 function example() {}
 $noop = fn() => {};
+$x = ($foo <=> 1);
+var_export(($x > 1) == false);
