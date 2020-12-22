@@ -1,7 +1,7 @@
 " Vim syntax file
 " Language: php PHP 3/4/5/7/8
 " Maintainer: Tyson Andre <tysonandre775@hotmail.com>
-" Last Change: Dec 19, 2020
+" Last Change: Dec 22, 2020
 " URL: https://github.com/TysonAndre/php-vim-syntax
 " Former Maintainers: 
 "         Jason Woofenden <jason@jasonwoof.com>
