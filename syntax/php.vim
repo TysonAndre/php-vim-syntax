@@ -658,7 +658,7 @@ endif
 
 syntax match phpDocCustomTags "@[a-zA-Z]*\(\s\+\|\n\|\r\)" containedin=phpComment
 syntax region phpDocTags start="{@\(example\|id\|internal\|inheritdoc\|link\|source\|toc\|tutorial\)" end="}" containedin=phpComment
-syntax match phpDocTags "@\(abstract\|access\|author\|category\|copyright\|deprecated\|example\|final\|global\|ignore\|internal\|license\|link\|method\|name\|package\|param\|property\|return\|see\|since\|static\|staticvar\|subpackage\|tutorial\|uses\|var\|version\|contributor\|modified\|filename\|description\|filesource\|throws\)\(\s\+\)\?" containedin=phpComment
+syntax match phpDocTags "@\(abstract\|access\|api\|author\|category\|copyright\|deprecated\|example\|final\|global\|ignore\|internal\|license\|link\|method\|name\|package\|param\|property\(-write\|-read\)\?\|return\|see\|since\|source\|static\|staticvar\|subpackage\|tutorial\|uses\|used-by\|var\|version\|contributor\|modified\|filename\|description\|filesource\|throws\)\(\s\+\)\?" containedin=phpComment
 syntax match phpDocTodo "@\(todo\|fixme\|xxx\)\(\s\+\)\?" containedin=phpComment
 
 " Define the default highlighting.
