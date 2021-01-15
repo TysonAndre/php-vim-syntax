@@ -446,7 +446,7 @@ syn cluster phpClTop contains=@phpClFunction,phpFoldFunction,phpFoldClass,phpFol
 " Php Region
 if exists("php_parent_error_open")
   if exists("php_noShortTags")
-    syn region phpRegion matchgroup=Delimiter start="<?php" end="?>" contains=@phpClTop
+    syn region phpRegion matchgroup=Delimiter start="<?\(php\|=\)" end="?>" contains=@phpClTop
   else
     syn region phpRegion matchgroup=Delimiter start="<?\(php\)\=" end="?>" contains=@phpClTop
   endif
@@ -456,7 +456,7 @@ if exists("php_parent_error_open")
   endif
 else
   if exists("php_noShortTags")
-    syn region phpRegion matchgroup=Delimiter start="<?php" end="?>" contains=@phpClTop keepend
+    syn region phpRegion matchgroup=Delimiter start="<?\(php\|=\)" end="?>" contains=@phpClTop keepend
   else
     syn region phpRegion matchgroup=Delimiter start="<?\(php\)\=" end="?>" contains=@phpClTop keepend
   endif
@@ -638,7 +638,7 @@ endif
 " Sync
 if php_sync_method==-1
   if exists("php_noShortTags")
-    syn sync match phpRegionSync grouphere phpRegion "^\s*<?php\s*$"
+    syn sync match phpRegionSync grouphere phpRegion "^\s*<?\(php\|=\)\s*$"
   else
     syn sync match phpRegionSync grouphere phpRegion "^\s*<?\(php\)\=\s*$"
   endif

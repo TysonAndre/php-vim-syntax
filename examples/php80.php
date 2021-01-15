@@ -41,3 +41,9 @@ function example() {}
 $noop = fn() => {};
 $x = ($foo <=> 1);
 var_export(($x > 1) == false);
+?>
+<!-- Should be highlighted even with noShortTags=1 - see https://www.php.net/manual/en/language.basic-syntax.phptags.php -->
+<?= $var ?>
+<!-- Should not be highlighted with noShortTags=1 -->
+<? echo $var; ?>
+<?xml ?>
