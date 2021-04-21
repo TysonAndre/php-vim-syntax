@@ -283,7 +283,7 @@ syn keyword phpStatement return break continue exit goto yield contained
 syn keyword phpKeyword var const contained
 
 " Type
-syn keyword phpType void bool boolean int integer real double float string array object NULL callable iterable mixed contained
+syn keyword phpType void bool boolean int integer real double float string array object NULL callable iterable mixed never contained
 
 " Structure
 syn keyword phpStructure namespace extends implements instanceof parent self contained
@@ -475,7 +475,7 @@ if exists("php_folding") && php_folding==1
   syn keyword phpStorageClass global contained
   syn match phpDefine "\(\s\|^\)\(abstract\s\+\|final\s\+\|private\s\+\|protected\s\+\|public\s\+\|static\s\+\)*function\(\s\+.*[;}]\)\@=" contained contains=phpSCKeyword
   syn match phpStructure "\(\s\|^\)\(abstract\s\+\|final\s\+\)*\(trait\|class\)\(\s\+.*}\)\@=" contained
-  syn match phpStructure "\(\s\|^\)interface\(\s\+.*}\)\@=" contained
+  syn match phpStructure "\(\s\|^\)\(interface\|enum\)\(\s\+.*}\)\@=" contained
   syn match phpException "\(\s\|^\)try\(\s\+.*}\)\@=" contained
   syn match phpException "\(\s\|^\)catch\(\s\+.*}\)\@=" contained
   syn match phpException "\(\s\|^\)finally\(\s\+.*}\)\@=" contained
@@ -484,13 +484,13 @@ if exists("php_folding") && php_folding==1
   syn region phpFoldHtmlInside matchgroup=Delimiter start="?>" end="<?\(php\)\=" contained transparent contains=@htmlTop
   syn region phpFoldFunction matchgroup=Storageclass start="^\z(\s*\)\(abstract\s\+\|final\s\+\|private\s\+\|protected\s\+\|public\s\+\|static\s\+\)*function\s\([^};]*$\)\@="rs=e-9 matchgroup=Delimiter end="^\z1}" contains=@phpClFunction,phpFoldHtmlInside,phpFCKeyword contained transparent fold extend
   syn region phpFoldFunction matchgroup=Define start="^function\s\([^};]*$\)\@=" matchgroup=Delimiter end="^}" contains=@phpClFunction,phpFoldHtmlInside contained transparent fold extend
-  syn region phpFoldClass matchgroup=Structure start="^\z(\s*\)\(abstract\s\+\|final\s\+\)*\(trait\|class\)\s\+\([^}]*$\)\@=" matchgroup=Delimiter end="^\z1}" contains=@phpClFunction,phpFoldFunction,phpSCKeyword contained transparent fold extend
+  syn region phpFoldClass matchgroup=Structure start="^\z(\s*\)\(abstract\s\+\|final\s\+\)*\(trait\|class\|enum\)\s\+\([^}]*$\)\@=" matchgroup=Delimiter end="^\z1}" contains=@phpClFunction,phpFoldFunction,phpSCKeyword contained transparent fold extend
   syn region phpFoldInterface matchgroup=Structure start="^\z(\s*\)interface\s\+\([^}]*$\)\@=" matchgroup=Delimiter end="^\z1}" contains=@phpClFunction,phpFoldFunction contained transparent fold extend
   syn region phpFoldCatch matchgroup=Exception start="^\z(\s*\)catch\s\+\([^}]*$\)\@=" matchgroup=Delimiter end="^\z1}" contains=@phpClFunction,phpFoldFunction contained transparent fold extend
   syn region phpFoldTry matchgroup=Exception start="^\z(\s*\)try\s\+\([^}]*$\)\@=" matchgroup=Delimiter end="^\z1}" contains=@phpClFunction,phpFoldFunction contained transparent fold extend
 else
   syn keyword phpDefine function fn contained
-  syn keyword phpStructure abstract class trait interface contained
+  syn keyword phpStructure abstract class trait interface enum contained
   syn keyword phpException catch throw try finally contained
   syn keyword phpStorageClass final global private protected public static contained
   if exists("php_folding") && php_folding==2
