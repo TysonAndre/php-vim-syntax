@@ -361,7 +361,7 @@ syn match phpFloatError "\%([eE.][0-9._+-]*\.\|__\|_\(\>\|[eE]\)\|\(\>\|[eE]\)_\
 
 " Number
 syn match phpNumber "\%(\.\)\@<!\<\%([1-9]\d*\|0\|0[xX]\(\x_\?\)*\x\)\>\%(\.\)\@!" contained display
-syn match phpNumber "\%(\.\)\@<!\<0\d\+\>\%(\.\)\@!" contained contains=phpOctalError display
+syn match phpNumber "\%(\.\)\@<!\<0\d\+\|0[oO]\d\+\>\%(\.\)\@!" contained contains=phpOctalError display
 syn match phpBinaryError "[2-9]" contained display
 syn match phpNumber "\%(\.\)\@<!\<0[bB]\(\d_\?\)*\d\>\%(\.\)\@!" contained contains=phpBinaryError display
 
