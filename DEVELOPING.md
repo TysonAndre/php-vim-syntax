@@ -17,3 +17,8 @@ optional features such as `php_alt_comparison`
 Some color schemes such as `elflord` use the same highlighting for known classes (e.g. RuntimeError) as unknown class names.
 
 To see the effect of changing a vim setting such as `php_alt_comparisons` without reloading vim, the command `:do Syntax` can be used.
+
+Showing errors
+--------------
+
+`:messages` shows the error and the error line
