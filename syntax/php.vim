@@ -18,7 +18,6 @@
 " `<?php $phpStartTag = '<?php';`.
 "
 " Credits for the original version of html.vim prior to modifications
-" https://github.com/vim/vim/blob/master/runtime/syntax/html.vim 
 "
 "   Previous Maintainer Jorge Maldonado Ventura <jorgesumle@freakspot.net>
 "   Previous Maintainer Claudio Fleiner <claudio@fleiner.com>
@@ -86,8 +85,7 @@ if !exists("main_syntax")
 endif
 
 " Start of copy of html for embedding in strings with  {{{
-" This is a clone of
-" https://github.com/vim/vim/blob/master/runtime/syntax/html.vim
+" This is a clone of https://notabug.org/jorgesumle/vim-html-syntax
 " from 2021 Mar 02 with changed symbols and modifications to rules. See the Note in the file header.
 "
 " The default behavior of php_htmlInStrings causes a bug
