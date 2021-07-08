@@ -705,7 +705,7 @@ endif
 " Fold
 if exists("php_folding") && php_folding==1
 " match one line constructs here and skip them at folding
-  syn keyword phpSCKeyword abstract final private protected public static contained
+  syn keyword phpSCKeyword abstract final private protected public static readonly contained
   syn keyword phpFCKeyword function contained
   syn keyword phpDefine fn contained
   syn keyword phpStorageClass global contained
@@ -728,7 +728,7 @@ else
   syn keyword phpDefine function fn contained
   syn keyword phpStructure abstract class trait interface enum contained
   syn keyword phpException catch throw try finally contained
-  syn keyword phpStorageClass final global private protected public static contained
+  syn keyword phpStorageClass final global private protected public static readonly contained
   if exists("php_folding") && php_folding==2
     setlocal foldmethod=syntax
     syn region phpFoldHtmlInside matchgroup=Delimiter start="?>" end="<?\(php\)\=" contained transparent contains=@htmlTop
