@@ -513,7 +513,7 @@ syn keyword phpRepeat as do endfor endforeach endwhile for foreach while contain
 syn keyword phpLabel case default switch contained
 
 " Statement
-syn keyword phpStatement return break continue exit goto yield contained
+syn keyword phpStatement return break continue exit goto yield from contained
 
 " Keyword
 syn keyword phpKeyword var const contained
