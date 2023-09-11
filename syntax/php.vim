@@ -520,7 +520,7 @@ syn match phpStatement "\<yield\>\(\s\+from\>\)\?" contained
 syn keyword phpKeyword var const contained
 
 " Type
-syn keyword phpType void bool boolean int integer real double float string array object NULL callable iterable mixed never contained
+syn keyword phpType void bool boolean int integer real double float string array object NULL callable iterable mixed never static contained
 
 " Structure
 syn keyword phpStructure namespace extends implements instanceof parent self contained
